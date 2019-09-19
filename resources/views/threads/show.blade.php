@@ -14,6 +14,20 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div><hr>
+    <div class="row justify-content-center">
+            <div class="col-md-8">
+                    @foreach ($thread->replies as $reply)
+                        <div class="card mb-2">
+                            <div class="card-header"><a href="#"><b>{{$reply->user->name}}</b></a> said {{ $reply->created_at->diffForHumans() }}</div>
+                            <div class="card-body">
+                                <article>
+                                    <div class="body">{{ $reply->body }}</div>
+                                </article>
+                            </div>
+                        </div>
+                    @endforeach
+            </div>
+        </div>
 </div>
 @endsection
