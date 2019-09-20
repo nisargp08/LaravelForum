@@ -26,12 +26,12 @@ class ReadThreadsTest extends TestCase
         //$response->assertStatus(200);
     }
     public function testAUserCanClickOnThreads(){
-        $response = $this->get('/threads/'.$this->thread->id);
+        $response = $this->get($this->thread->path());
         $response->assertSee($this->thread->title);
     }
     public function testAUserCanViewRepliesOnThread(){
         $reply = factory('App\Reply')->create(['thread_id' => $this->thread->id]);
-        $this->get('/threads/'.$this->thread->id)
+        $this->get($this->thread->path())
             ->assertSee($reply->body);
     }
 }
