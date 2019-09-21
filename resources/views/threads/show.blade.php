@@ -31,6 +31,7 @@
                 </div>
                 <div class="card-body">
                     <form method="POST" action="{{ $thread->path().'/replies' }}">
+                         {{ csrf_field() }}
                         <div class="form-group">
                             <textarea name="body" id="body" class="form-control" placeholder="Have something to say?" rows="5"></textarea>
                         </div>
@@ -40,6 +41,8 @@
             </div>
         </div>
     </div>
+    @else
+        <p class="text-center mt-2">Please <a href="{{ route('login') }}">Sign In</a> to participate in this discussion</p>
     @endif
 </div>
 @endsection
