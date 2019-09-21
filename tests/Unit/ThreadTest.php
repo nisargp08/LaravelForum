@@ -18,7 +18,7 @@ class ThreadTest extends TestCase
      */
     public function setUp(): void{
         parent::setUp();
-        $this->thread = factory('App\Thread')->create();
+        $this->thread = create('App\Thread');
     }
 
     function testAThreadHasReplies(){

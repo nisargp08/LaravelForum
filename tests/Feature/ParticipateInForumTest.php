@@ -16,20 +16,20 @@ class ParticipateInForumTest extends TestCase
      *
      * @return void
      */
-    /*function testUnauthenticatedUsersMayNotAddReplies(){
+    function testUnauthenticatedUsersMayNotAddReplies(){
         $this->expectException('Illuminate\Auth\AuthenticationException');
         $this->post('/threads/1/replies',[]);
-    }*/
+    }
 
     function testAuthenticatedUserMayParticipateInForumThreads(){
         //Given we have a authenticated user
-        $user = factory('App\User')->create();
+        $user = create('App\User');
         //Authenticating the user
         $this->be($user);
         //And an existing thread
-        $thread = factory('App\Thread')->create();
+        $thread = create('App\Thread');
         //When a user adds a reply to the thread
-        $reply = factory('App\Reply')->make();
+        $reply = make('App\Reply');
         $this->post($thread->path().'/replies',$reply->toArray());
         //Then their reply should be visible on the page
          $this->get($thread->path())->assertSee($reply->body);
