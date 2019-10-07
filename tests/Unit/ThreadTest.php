@@ -24,9 +24,11 @@ class ThreadTest extends TestCase
     function testAThreadHasReplies(){
         $this->assertInstanceOf('Illuminate\Database\Eloquent\Collection',$this->thread->replies);
     }
+
     function testAThreadHasACreator(){
         $this->assertInstanceOf('App\User',$this->thread->author);
     }
+
     function testAThreadCanAddReply(){
         $this->thread->addReply([
             'body' => 'Reply Body check insertion',
@@ -34,5 +36,15 @@ class ThreadTest extends TestCase
         ]);
         //Reply count
         $this->assertCount(1,$this->thread->replies);
+    }
+
+    function testAThreadBelongsToAChannel(){
+        $thread = create('App\Thread');
+        $this->assertInstanceOf('App\Channel',$thread->channel);
+    }
+
+    function testAThreadCanMakeAStringPath(){
+        $thread = create('App\Thread');
+        $this->assertEquals("/threads/{$thread->channel->slug}/{$thread->id}",$thread->path());
     }
 }

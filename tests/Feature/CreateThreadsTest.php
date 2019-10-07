@@ -12,9 +12,13 @@ class CreateThreadsTest extends TestCase
 {
     use DatabaseMigrations;
     public function testGuestCanNotCreateNewThreads(){
-        $this->expectException('Illuminate\Auth\AuthenticationException');
-        $thread = make('App\Thread');
-        $this->post('/threads',$thread->toArray());
+        $this->withExceptionHandling();
+
+        $this->get('/threads/create')
+            ->assertRedirect('/login');
+
+        $this->post('/threads')
+            ->assertRedirect('/login');
     }
     /**
      * A basic feature test to test an authenticated User can create new threads.
@@ -29,7 +33,7 @@ class CreateThreadsTest extends TestCase
         $this->signIn();
         //That user should be able to create threads
         //When we hit the endpoint to create a new thread
-        $thread = make('App\Thread');
+        $thread = create('App\Thread');
         $this->post('/threads',$thread->toArray());
         //Check if the created thread exists in the DB
 
