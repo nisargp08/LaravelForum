@@ -34,4 +34,7 @@ class ReadThreadsTest extends TestCase
         $this->get($this->thread->path())
             ->assertSee($reply->body);
     }
+    public function testAUserCanFilterThreadsAccordingToATag(){
+
+    }
 }
