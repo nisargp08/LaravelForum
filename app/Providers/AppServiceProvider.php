@@ -25,5 +25,13 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+        //For two or more view you can pass it in array : ['threads.create','threads.edit']
+        // '*' will pass it to all the views
+
+        //Alternate Method
+        /*\View::composer('*', function($view){
+            $view->with('channels',\App\Channel::all());
+        });*/
+        \view()->share('channels', \App\Channel::all());
     }
 }
