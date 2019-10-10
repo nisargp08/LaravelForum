@@ -5,7 +5,7 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-
+use App\Channel;
 class ReadThreadsTest extends TestCase
 {
     use DatabaseMigrations;
@@ -34,7 +34,13 @@ class ReadThreadsTest extends TestCase
         $this->get($this->thread->path())
             ->assertSee($reply->body);
     }
-    public function testAUserCanFilterThreadsAccordingToATag(){
+    public function testAUserCanFilterThreadsAccordingToAChannel(){
+        $channel = create('App\Channel');
+        $threadInChannel = create('App\Thread',['channel_id' => $channel->id]);
+        $threadNotInChannel = create('App\Thread');
 
+        $this->get('/threads/'.$channel->slug)
+            ->assertSee($threadInChannel->title)
+            ->assertDontSee($threadNotInChannel->title);
     }
 }
