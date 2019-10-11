@@ -29,9 +29,9 @@ class AppServiceProvider extends ServiceProvider
         // '*' will pass it to all the views
 
         //Alternate Method
-        /*\View::composer('*', function($view){
+        \View::composer('*', function($view){
             $view->with('channels',\App\Channel::all());
-        });*/
-        \view()->share('channels', \App\Channel::all());
+        });
+        //\view()->share('channels', \App\Channel::all());
     }
 }
